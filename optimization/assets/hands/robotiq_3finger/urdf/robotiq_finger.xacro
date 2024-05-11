@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="safety_controller_k_pos" value="100"/>
+    <xacro:property name="safety_controller_k_vel" value="100"/>
+    <xacro:property name="joint_damping" value="0.5"/>
+    <xacro:property name="max_effort" value="300"/>
+    <xacro:property name="max_velocity" value="10"/>
+
+    <xacro:macro name="robotiq_finger" params="prefix">
+        <link name="${prefix}_base">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="1"/>
+                <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://robotiq_3finger_description/meshes/robotiq_3finger/finger_link1_base_visual.stl"/>
+                </geometry>
+                <material name="DarkGray"/>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://robotiq_3finger_description/meshes/robotiq_3finger/finger_link1_base_visual.stl"/>
+                </geometry>
+                <material name="DarkGray"/>
+            </collision>
+        </link>
+
+        <!-- Joint 2 (base-prox) -->
+        <joint name="${prefix}_joint_2" type="revolute">
+            <parent link="${prefix}_base"/>
+            <child link="${prefix}_prox"/>
+
+            <origin xyz="0.02225000 0 0.02151380" rpy="0 ${35 * PI / 180} 0"/>
+            <axis xyz="0 -1 0"/>
+            <limit lower="0" upper="1.2217304763960307"
+                   effort="${max_effort}" velocity="${max_velocity}"/>
+            <safety_controller soft_lower_limit="${-35 * PI / 180}"
+                               soft_upper_limit="${35 * PI / 180}"
+                               k_position="${safety_controller_k_pos}"
+                               k_velocity="${safety_controller_k_vel}"/>
+            <dynamics damping="${joint_damping}"/>
+        </joint>
+        <link name="${prefix}_prox">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="1"/>
+                <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://robotiq_3finger_description/meshes/robotiq_3finger/finger_link2_prox_visual.stl"/>
+                </geometry>
+                <material name="DarkGray"/>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://robotiq_3finger_description/meshes/robotiq_3finger/finger_link2_prox_collision.stl"/>
+                </geometry>
+                <material name="DarkGray"/>
+            </collision>
+        </link>
+
+        <!-- Joint 3 (prox-med) -->
+        <joint name="${prefix}_joint_3" type="revolute">
+            <parent link="${prefix}_prox"/>
+            <child link="${prefix}_med"/>
+
+            <origin xyz="0 0 0.05715000" rpy="0 0 0"/>
+            <axis xyz="0 -1 0"/>
+            <limit lower="-1" upper="1"
+                   effort="${max_effort}" velocity="${max_velocity}"/>
+            <safety_controller soft_lower_limit="${0 * PI / 180}"
+                               soft_upper_limit="${90 * PI / 180}"
+                               k_position="${safety_controller_k_pos}"
+                               k_velocity="${safety_controller_k_vel}"/>
+            <dynamics damping="${joint_damping}"/>
+        </joint>
+        <link name="${prefix}_med">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="1"/>
+                <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://robotiq_3finger_description/meshes/robotiq_3finger/finger_link3_med_visual.stl"/>
+                </geometry>
+                <material name="DarkGray"/>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://robotiq_3finger_description/meshes/robotiq_3finger/finger_link3_med_collision.stl"/>
+                </geometry>
+                <material name="DarkGray"/>
+            </collision>
+        </link>
+
+        <!-- Joint 4 (med-dist) -->
+        <joint name="${prefix}_joint_4" type="revolute">
+            <parent link="${prefix}_med"/>
+            <child link="${prefix}_dist"/>
+
+            <origin xyz="0 0 0.03810000" rpy="0 ${-25 * PI / 180} 0"/>
+            <axis xyz="0 -1 0"/>
+            <limit lower="-1" upper="1"
+                   effort="${max_effort}" velocity="${max_velocity}"/>
+            <safety_controller soft_lower_limit="${-25 * PI / 180}"
+                               soft_upper_limit="${73 * PI / 180}"
+                               k_position="${safety_controller_k_pos}"
+                               k_velocity="${safety_controller_k_vel}"/>
+            <dynamics damping="${joint_damping}"/>
+        </joint>
+        <link name="${prefix}_dist">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="1"/>
+                <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://robotiq_3finger_description/meshes/robotiq_3finger/finger_link4_dist_visual.stl"/>
+                </geometry>
+                <material name="DarkGray"/>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://robotiq_3finger_description/meshes/robotiq_3finger/finger_link4_dist_collision.stl"/>
+                </geometry>
+                <material name="DarkGray"/>
+            </collision>
+        </link>
+    </xacro:macro>
+
+</robot>

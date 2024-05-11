@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot name="victor" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find robotiq_3finger_description)/urdf/materials.xacro"/>
+    <xacro:include filename="$(find robotiq_3finger_description)/urdf/utilities.xacro"/>
+    <xacro:include filename="$(find robotiq_3finger_description)/urdf/robotiq_3finger_description.xacro"/>
+    <link name="palm_base"/>
+    <xacro:robotiq_3finger parent="palm_base" prefix="gripper" hardware_interface="hardware_interface/EffortJointInterface">
+        <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Offset measured with a tape measure; please confirm/fix this value -->
+    </xacro:robotiq_3finger>
+</robot>

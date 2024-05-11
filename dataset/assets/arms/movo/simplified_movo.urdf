@@ -1,0 +1,587 @@
+<robot name="movo" xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- Base link is the center of the robot's chassis between the motors projected on the ground -->
+    <link name="world" />
+    <joint name="world_to_base" type="fixed">
+        <parent link="world" />
+        <child link="base_link" />
+        <origin xyz="0.0 0.00 0.0" rpy="-1.5707963267948966 -1.5707963267948966 0.0"/>
+    </joint>
+    <link name="base_link" />
+    <joint name="linear_joint" type="prismatic">
+        <parent link="base_link" />
+        <child link="linear_actuator_link" />
+        <origin xyz="0.0771402 0.0 0.47007630000000006" rpy="0.0 -0.0 0.0" />
+        <axis xyz="0 0 1" />
+        <limit effort="1000" lower="0.0" upper="0.472" velocity="0.20" />
+        <dynamics damping="0.0" friction="0.0" />
+    </joint>
+    <link name="linear_actuator_link">
+        <visual>
+            <geometry>
+                <mesh
+                    filename="meshes/movo_components/visual/movo_moving_payload.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/movo_components/collision/movo_upper_body_collision_coacd.obj" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="12.926242" />
+            <origin xyz="-0.075467 -0.004693 0.397754" />
+            <inertia ixx="0.300410" ixy="-0.010043" ixz="-0.054146" iyx="-0.010043" iyy="0.296460"
+                iyz="-0.024977" izx="-0.054146" izy="-0.024977" izz="0.294778" />
+        </inertial>
+    </link>
+    <!--joint
+    name="lower_body_joint" type="fixed">
+    <origin xyz="0.00014300000000000077 0.0007270000000000002 0.26427900000000004" rpy="0.0 -0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="lower_body_link"/>
+  </joint>
+  <link name="lower_body_link">
+    <inertial>
+      <mass value="7.753378"/>
+      <origin xyz="0.000143 0.000727 0.188079"/>
+      <inertia ixx="0.339365" ixy="0.000325" ixz="0.000146" iyx="0.000325" iyy="0.590290" iyz="-0.001078"
+    izx="0.000146" izy="-0.001078" izz="0.588946"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/movo_body/movo_lower_body.dae"/>
+      </geometry>
+    </visual>
+  </link-->
+    <joint name="upper_body_joint" type="fixed">
+        <!--parent
+        link="base_link"/-->
+        <parent link="linear_actuator_link" />
+        <child link="upper_body_link" />
+        <!--origin
+        xyz="-0.003467799999999993 0.0002900000000000003 0.7561023" rpy="0.0 -0.0 0.0"/-->
+    </joint>
+    <link name="upper_body_link">
+        <inertial>
+            <mass value="6.246912" />
+            <origin xyz="-0.080608 0.000290 0.286026" />
+            <inertia ixx="0.425973" ixy="0.000022" ixz="-0.015916" iyx="0.000022" iyy="0.439921"
+                iyz="-0.000555" izx="-0.015916" izy="-0.000555" izz="0.305785" />
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <mesh filename="meshes/movo_body/movo_upper_body.dae" />
+            </geometry>
+        </visual>
+    </link>
+    <!--joint
+    name="mid_body_joint" type="prismatic">
+    <parent link="base_link"/>
+    <child link="mid_body_link"/>
+    <origin xyz="2.0000000000575113e-07 0.0 0.4966783" rpy="0.0 -0.0 0.0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="0.0" upper="0.2545608" velocity="0.20"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>
+  <link name="mid_body_link">
+    <inertial>
+      <mass value="2.246837"/>
+      <origin xyz="-0.077140 0.000000 0.026602"/>
+      <inertia ixx="0.067276" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.073946" iyz="0.000000"
+    izx="0.000000" izy="0.000000" izz="0.102656"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/movo_body/movo_mid_body.dae"/>
+      </geometry>
+    </visual>
+  </link-->
+    <joint name="right_kinova_joint" type="fixed">
+        <!--parent
+        link="base_link"/-->
+        <parent link="linear_actuator_link" />
+        <child link="right_base_link" />
+        <origin rpy="-1.570796325 0 -1.570796325" xyz="0.0261046 -0.13335 0.2799937" />
+        <!--origin
+        xyz="0.134283799999738 -0.13320399994428828 0.7500700000557118" rpy="-1.5707963250000005
+        -3.3306690738754696e-16 -1.5707963250000005"/-->
+    </joint>
+    <link name="right_base_link">
+        <visual>
+            <geometry>
+                <mesh filename="meshes/manipulation/jaco/visual/base.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/base_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.649618" />
+            <origin xyz="-0.000146 0.0 0.031039" />
+            <inertia ixx="0.000652" ixy="-0.000000" ixz="0.000001" iyx="0.000000" iyy="0.000646"
+                iyz="0.000000" izx="0.000001" izy="0.000000" izz="0.000480" />
+        </inertial>
+    </link>
+    <joint name="right_shoulder_pan_joint" type="revolute">
+        <parent link="right_base_link" />
+        <child link="right_shoulder_link" />
+        <origin rpy="0 3.14159265 0" xyz="0 0 0.0625" />
+        <axis xyz="0 0 1" />
+        <limit effort="18000.0" lower="-3.14159265" upper="3.14159265" velocity="0.691150384" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="right_shoulder_link">
+        <visual>
+            <geometry>
+                <mesh filename="meshes/manipulation/jaco/visual/shoulder_7dof.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/shoulder_7dof_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.824524" />
+            <origin xyz="0.000018 -0.004667 -0.060609" />
+            <inertia ixx="0.002561" ixy="0.000000" ixz="0.000001" iyx="0.000000" iyy="0.002653"
+                iyz="0.000212" izx="0.000001" izy="0.000212" izz="0.000524" />
+        </inertial>
+    </link>
+    <joint name="right_shoulder_lift_joint" type="revolute">
+        <parent link="right_shoulder_link" />
+        <child link="right_arm_half_1_link" />
+        <origin rpy="1.570796325 0 0" xyz="0 0 -0.11875" />
+        <axis xyz="0 0 1" />
+        <limit effort="30000.5" lower="-2.238" upper="2.238" velocity="0.691150384" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="right_arm_half_1_link">
+        <visual>
+            <geometry>
+                <mesh filename="meshes/manipulation/jaco/visual/arm_half_1.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/arm_half_1_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.8447" />
+            <origin xyz="0 -0.103563213 0" />
+            <inertia ixx="0.000435" ixy="0.000002" ixz="0.000231" iyx="0.000002" iyy="0.034947"
+                iyz="0.000000" izx="0.000231" izy="0.000000" izz="0.035198" />
+        </inertial>
+    </link>
+    <joint name="right_arm_half_joint" type="revolute">
+        <parent link="right_arm_half_1_link" />
+        <child link="right_arm_half_2_link" />
+        <origin rpy="-1.570796325 0 0" xyz="0 -0.205 0" />
+        <axis xyz="0 0 1" />
+        <limit effort="30000.5" lower="-3.14159265" upper="3.14159265" velocity="0.691150384" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="right_arm_half_2_link">
+        <visual>
+            <geometry>
+                <mesh filename="meshes/manipulation/jaco/visual/arm_half_2.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/arm_half_2_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.8447" />
+            <origin xyz="0 0 -0.1022447445" />
+            <inertia ixx="0.000435" ixy="0.000002" ixz="0.000231" iyx="0.000002" iyy="0.034947"
+                iyz="0.000000" izx="0.000231" izy="0.000000" izz="0.035198" />
+        </inertial>
+    </link>
+    <joint name="right_elbow_joint" type="revolute">
+        <parent link="right_arm_half_2_link" />
+        <child link="right_forearm_link" />
+        <origin rpy="-1.570796325 0 0" xyz="0 0 -0.205" />
+        <axis xyz="0 0 1" />
+        <limit effort="18000.0" lower="-2.809" upper="2.809" velocity="0.691150384" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="right_forearm_link">
+        <visual>
+            <geometry>
+                <mesh filename="meshes/manipulation/jaco/visual/forearm_7dof.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/forearm_7dof_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.674254" />
+            <origin xyz="0 0.081 -0.0086" />
+            <inertia ixx="0.005453" ixy="0.000003" ixz="0.000000" iyx="0.000003" iyy="0.000305"
+                iyz="0.000087" izx="0.000000" izy="0.000087" izz="0.005578" />
+        </inertial>
+    </link>
+    <joint name="right_wrist_spherical_1_joint" type="revolute">
+        <parent link="right_forearm_link" />
+        <child link="right_wrist_spherical_1_link" />
+        <!--  <origin xyz="0 0.20725 0 " rpy="${wrist_spherical_1_joint_rpy}" /> -->
+        <origin rpy="1.570796325 3.14159265 0" xyz="0 0.2073 -0.0114" />
+        <axis xyz="0 0 1" />
+        <limit effort="60000.8" lower="-3.14159265" upper="3.14159265" velocity="0.921533845" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="right_wrist_spherical_1_link">
+        <visual>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/visual/wrist_spherical_1.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/wrist_spherical_1_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.463" />
+            <origin xyz="0 0.0028848942 -0.0541932613" />
+            <inertia ixx="0.000392" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.000347"
+                iyz="0.000101" izx="0.000000" izy="0.000101" izz="0.000233" />
+        </inertial>
+    </link>
+    <joint name="right_wrist_spherical_2_joint" type="revolute">
+        <parent link="right_wrist_spherical_1_link" />
+        <child link="right_wrist_spherical_2_link" />
+        <origin rpy="-1.570796325 0 0" xyz="0 0 -0.10375 " />
+        <axis xyz="0 0 1" />
+        <limit effort="60000.8" lower="-2.78" upper="2.78" velocity="0.921533845" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="right_wrist_spherical_2_link">
+        <visual>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/visual/wrist_spherical_2.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/wrist_spherical_2_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.463" />
+            <origin xyz="0 0.0497208855 -0.0028562765" />
+            <inertia ixx="0.000392" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.000347"
+                iyz="0.000101" izx="0.000000" izy="0.000101" izz="0.000233" />
+        </inertial>
+    </link>
+    <joint name="right_wrist_3_joint" type="revolute">
+        <parent link="right_wrist_spherical_2_link" />
+        <child link="right_wrist_3_link" />
+        <origin rpy="1.570796325 3.14159265 0" xyz="0 0.06 0" />
+        <axis xyz="0 0 1" />
+        <limit effort="60000.8" lower="-3.14159265" upper="3.14159265" velocity="0.921533845" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="right_wrist_3_link">
+        <visual>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/visual/kinova_actuator_gearing.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/kinova_actuator_gearing_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.190782" />
+            <origin xyz="-0.00082 0.000048 -0.216121" />
+            <inertia ixx="0.000048" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.000049"
+                iyz="0.000000" izx="0.000000" izy="0.000000" izz="0.000072" />
+        </inertial>
+    </link>
+    <joint name="right_ee_fixed_joint" type="fixed">
+        <!-- a virtual link to determine end effector location -->
+        <parent link="right_wrist_3_link" />
+        <child link="right_ee_link" />
+        <origin rpy="1.57 1.57 0" xyz="0.025 -0.015 -0.172" />
+    </joint>
+    <link name="right_ee_link" />
+    <joint name="right_tip_fixed_joint" type="fixed">
+        <!-- a virtual link to determine tip location -->
+        <parent link="right_ee_link" />
+        <child link="right_tip_link" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+    <link name="right_tip_link" />
+
+    <joint name="right_gripper_base_joint" type="fixed">
+        <parent link="right_ee_link" />
+        <child link="right_ee" />
+        <origin rpy="0 0 0" xyz="0 0 0" />
+    </joint>
+    <link name="right_ee" />
+
+    <joint name="left_kinova_joint" type="fixed">
+        <!--parent
+        link="base_link"/-->
+        <parent link="linear_actuator_link" />
+        <child link="left_base_link" />
+        <origin rpy="-1.570796325 0 -1.570796325" xyz="0.0261046 0.13335 0.2799937" />
+        <!--origin
+        xyz="0.134283799999738 0.13349600005571186 0.7500700000557118" rpy="-1.5707963250000005
+        -3.3306690738754696e-16 -1.5707963250000005" /-->
+    </joint>
+    <link name="left_base_link">
+        <visual>
+            <geometry>
+                <mesh filename="meshes/manipulation/jaco/visual/base.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/base_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.649618" />
+            <origin xyz="-0.000146 0.0 0.031039" />
+            <inertia ixx="0.000652" ixy="-0.000000" ixz="0.000001" iyx="0.000000" iyy="0.000646"
+                iyz="0.000000" izx="0.000001" izy="0.000000" izz="0.000480" />
+        </inertial>
+    </link>
+    <joint name="left_shoulder_pan_joint" type="revolute">
+        <parent link="left_base_link" />
+        <child link="left_shoulder_link" />
+        <origin rpy="0 3.14159265 0" xyz="0 0 0.0625" />
+        <axis xyz="0 0 1" />
+        <limit effort="18000.0" lower="-3.14159265" upper="3.14159265" velocity="0.691150384" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="left_shoulder_link">
+        <visual>
+            <geometry>
+                <mesh filename="meshes/manipulation/jaco/visual/shoulder_7dof.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/shoulder_7dof_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.824524" />
+            <origin xyz="0.000018 -0.004667 -0.060609" />
+            <inertia ixx="0.002561" ixy="0.000000" ixz="0.000001" iyx="0.000000" iyy="0.002653"
+                iyz="0.000212" izx="0.000001" izy="0.000212" izz="0.000524" />
+        </inertial>
+    </link>
+    <joint name="left_shoulder_lift_joint" type="revolute">
+        <parent link="left_shoulder_link" />
+        <child link="left_arm_half_1_link" />
+        <origin rpy="1.570796325 0 0" xyz="0 0 -0.11875" />
+        <axis xyz="0 0 1" />
+        <limit effort="30000.5" lower="-2.238" upper="2.238" velocity="0.691150384" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="left_arm_half_1_link">
+        <visual>
+            <geometry>
+                <mesh filename="meshes/manipulation/jaco/visual/arm_half_1.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/arm_half_1_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.8447" />
+            <origin xyz="0 -0.103563213 0" />
+            <inertia ixx="0.000435" ixy="0.000002" ixz="0.000231" iyx="0.000002" iyy="0.034947"
+                iyz="0.000000" izx="0.000231" izy="0.000000" izz="0.035198" />
+        </inertial>
+    </link>
+    <joint name="left_arm_half_joint" type="revolute">
+        <parent link="left_arm_half_1_link" />
+        <child link="left_arm_half_2_link" />
+        <origin rpy="-1.570796325 0 0" xyz="0 -0.205 0" />
+        <axis xyz="0 0 1" />
+        <limit effort="30000.5" lower="-3.14159265" upper="3.14159265" velocity="0.691150384" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="left_arm_half_2_link">
+        <visual>
+            <geometry>
+                <mesh filename="meshes/manipulation/jaco/visual/arm_half_2.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/arm_half_2_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.8447" />
+            <origin xyz="0 0 -0.1022447445" />
+            <inertia ixx="0.000435" ixy="0.000002" ixz="0.000231" iyx="0.000002" iyy="0.034947"
+                iyz="0.000000" izx="0.000231" izy="0.000000" izz="0.035198" />
+        </inertial>
+    </link>
+    <joint name="left_elbow_joint" type="revolute">
+        <parent link="left_arm_half_2_link" />
+        <child link="left_forearm_link" />
+        <origin rpy="-1.570796325 0 0" xyz="0 0 -0.205" />
+        <axis xyz="0 0 1" />
+        <limit effort="18000.0" lower="-2.809" upper="2.809" velocity="0.691150384" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="left_forearm_link">
+        <visual>
+            <geometry>
+                <mesh filename="meshes/manipulation/jaco/visual/forearm_7dof.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/forearm_7dof_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.674254" />
+            <origin xyz="0 0.081 -0.0086" />
+            <inertia ixx="0.005453" ixy="0.000003" ixz="0.000000" iyx="0.000003" iyy="0.000305"
+                iyz="0.000087" izx="0.000000" izy="0.000087" izz="0.005578" />
+        </inertial>
+    </link>
+    <joint name="left_wrist_spherical_1_joint" type="revolute">
+        <parent link="left_forearm_link" />
+        <child link="left_wrist_spherical_1_link" />
+        <!--  <origin xyz="0 0.20725 0 " rpy="${wrist_spherical_1_joint_rpy}" /> -->
+        <origin rpy="1.570796325 3.14159265 0" xyz="0 0.2073 -0.0114" />
+        <axis xyz="0 0 1" />
+        <limit effort="60000.8" lower="-3.14159265" upper="3.14159265" velocity="0.921533845" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="left_wrist_spherical_1_link">
+        <visual>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/visual/wrist_spherical_1.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/wrist_spherical_1_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.463" />
+            <origin xyz="0 0.0028848942 -0.0541932613" />
+            <inertia ixx="0.000392" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.000347"
+                iyz="0.000101" izx="0.000000" izy="0.000101" izz="0.000233" />
+        </inertial>
+    </link>
+    <joint name="left_wrist_spherical_2_joint" type="revolute">
+        <parent link="left_wrist_spherical_1_link" />
+        <child link="left_wrist_spherical_2_link" />
+        <origin rpy="-1.570796325 0 0" xyz="0 0 -0.10375 " />
+        <axis xyz="0 0 1" />
+        <limit effort="60000.8" lower="-2.78" upper="2.78" velocity="0.921533845" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="left_wrist_spherical_2_link">
+        <visual>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/visual/wrist_spherical_2.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/wrist_spherical_2_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.463" />
+            <origin xyz="0 0.0497208855 -0.0028562765" />
+            <inertia ixx="0.000392" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.000347"
+                iyz="0.000101" izx="0.000000" izy="0.000101" izz="0.000233" />
+        </inertial>
+    </link>
+    <joint name="left_wrist_3_joint" type="revolute">
+        <parent link="left_wrist_spherical_2_link" />
+        <child link="left_wrist_3_link" />
+        <origin rpy="1.570796325 3.14159265 0" xyz="0 0.06 0" />
+        <axis xyz="0 0 1" />
+        <limit effort="60000.8" lower="-3.14159265" upper="3.14159265" velocity="0.921533845" />
+        <dynamics damping="0.01" friction="0.0" />
+    </joint>
+    <link name="left_wrist_3_link">
+        <visual>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/visual/kinova_actuator_gearing.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh
+                    filename="meshes/manipulation/jaco/collision/kinova_actuator_gearing_convex_hull.stl" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.190782" />
+            <origin xyz="-0.00082 0.000048 -0.216121" />
+            <inertia ixx="0.000048" ixy="0.000000" ixz="0.000000" iyx="0.000000" iyy="0.000049"
+                iyz="0.000000" izx="0.000000" izy="0.000000" izz="0.000072" />
+        </inertial>
+    </link>
+    <joint name="left_ee_fixed_joint" type="fixed">
+        <parent link="left_wrist_3_link" />
+        <child link="left_ee_link" />
+        <origin rpy="1.57 1.57 0" xyz="0.025 -0.015 -0.172" />
+    </joint>
+    <link name="left_ee_link" />
+    <joint name="left_tip_fixed_joint" type="fixed">
+        <parent link="left_ee_link" />
+        <child link="left_tip_link" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+    <link name="left_tip_link" />
+    <joint name="left_gripper_base_joint" type="fixed">
+        <parent link="left_ee_link" />
+        <child link="left_ee" />
+        <origin rpy="0 0 0" xyz="0 0 0" />
+    </joint>
+    <link name="left_ee" />
+</robot>

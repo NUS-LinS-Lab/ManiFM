@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="robotiq_3finger_description_transmission" params="hardware_interface robot_name">
+
+    <transmission name="${robot_name}_tran_A2">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${robot_name}_fingerA_joint_2">
+        <hardwareInterface>${hardware_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${robot_name}_motor_A2">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${robot_name}_tran_A3">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${robot_name}_fingerA_joint_3">
+        <hardwareInterface>${hardware_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${robot_name}_motor_A3">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${robot_name}_tran_A4">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${robot_name}_fingerA_joint_4">
+        <hardwareInterface>${hardware_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${robot_name}_motor_A4">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${robot_name}_tran_B2">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${robot_name}_fingerB_joint_2">
+        <hardwareInterface>${hardware_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${robot_name}_motor_B2">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${robot_name}_tran_B3">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${robot_name}_fingerB_joint_3">
+        <hardwareInterface>${hardware_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${robot_name}_motor_B3">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${robot_name}_tran_B4">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${robot_name}_fingerB_joint_4">
+        <hardwareInterface>${hardware_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${robot_name}_motor_B4">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${robot_name}_tran_C2">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${robot_name}_fingerC_joint_2">
+        <hardwareInterface>${hardware_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${robot_name}_motor_C2">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${robot_name}_tran_C3">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${robot_name}_fingerC_joint_3">
+        <hardwareInterface>${hardware_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${robot_name}_motor_C3">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${robot_name}_tran_C4">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${robot_name}_fingerC_joint_4">
+        <hardwareInterface>${hardware_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${robot_name}_motor_C4">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${robot_name}_tran_Bknuckle">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${robot_name}_fingerB_knuckle">
+        <hardwareInterface>${hardware_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${robot_name}_motor_Bknuckle">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${robot_name}_tran_Cknuckle">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${robot_name}_fingerC_knuckle">
+        <hardwareInterface>${hardware_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${robot_name}_motor_Cknuckle">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    
+  </xacro:macro>
+
+</robot>
+
+
+

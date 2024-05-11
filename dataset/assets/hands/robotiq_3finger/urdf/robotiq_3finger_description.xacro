@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find robotiq_3finger_description)/urdf/robotiq_finger.xacro"/>
+    <xacro:include filename="$(find robotiq_3finger_description)/urdf/robotiq_3finger_description.transmission.xacro"/>
+
+    <xacro:macro name="robotiq_3finger" params="parent prefix hardware_interface *origin">
+
+        <joint name="${prefix}_palm_joint" type="fixed">
+            <xacro:insert_block name="origin"/>
+            <parent link="${parent}"/>
+            <child link="${prefix}_palm"/>
+        </joint>
+        <link name="${prefix}_palm">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="1"/>
+                <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://robotiq_3finger_description/meshes/robotiq_3finger/palm_visual.stl"/>
+                </geometry>
+                <material name="DarkGray"/>
+            </visual>
+
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://robotiq_3finger_description/meshes/robotiq_3finger/palm_collision.stl"/>
+                </geometry>
+                <material name="DarkGray"/>
+            </collision>
+
+        </link>
+
+        <!-- Palm surface aligned with the gripper axis -->
+        <joint name="${prefix}_palm_surface_joint" type="fixed">
+            <parent link="${prefix}_palm"/>
+            <child link="${prefix}_palm_surface"/>
+            <origin xyz="0 0 0.092075" rpy="0 0 0"/>
+        </joint>
+        <link name="${prefix}_palm_surface">
+        </link>
+
+        <!-- Kuka internal frame has been changed to match our external usage, so identity transform -->
+        <joint name="${prefix}_palm_surface_kuka_joint" type="fixed">
+            <parent link="${prefix}_palm_surface"/>
+            <child link="${prefix}_palm_surface_kuka"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </joint>
+        <link name="${prefix}_palm_surface_kuka">
+        </link>
+
+        <!-- Finger A -->
+        <joint name="${prefix}_fingerA_knuckle" type="fixed">
+            <origin xyz="0.02225040 0 0.06111875" rpy="0 0 0"/>
+            <parent link="${prefix}_palm"/>
+            <child link="${prefix}_fingerA_base"/>
+        </joint>
+        <xacro:robotiq_finger prefix="${prefix}_fingerA"/>
+
+        <!-- Finger B -->
+        <joint name="${prefix}_fingerB_knuckle" type="revolute">
+            <origin xyz="-0.02230120 0.03651250 0.06111875" rpy="0 0 ${PI}"/>
+            <parent link="${prefix}_palm"/>
+            <child link="${prefix}_fingerB_base"/>
+            <axis xyz="-1 0 0"/>
+
+            <limit lower="${-16 * PI / 180}" upper="${10 * PI / 180}"
+               effort="${max_effort}" velocity="${max_velocity}"/>
+            <safety_controller soft_lower_limit="${-14 * PI / 180}"
+                               soft_upper_limit="${8 * PI / 180}"
+                               k_position="${safety_controller_k_pos}"
+                               k_velocity="${safety_controller_k_vel}"/>
+            <dynamics damping="${joint_damping}"/>
+        </joint>
+        <xacro:robotiq_finger prefix="${prefix}_fingerB"/>
+
+        <!-- Finger C -->
+        <joint name="${prefix}_fingerC_knuckle" type="revolute">
+            <origin xyz="-0.02230120 -0.03651250 0.06111875" rpy="0 0 ${PI}"/>
+            <parent link="${prefix}_palm"/>
+            <child link="${prefix}_fingerC_base"/>
+            <axis xyz="1 0 0"/>
+
+            <limit lower="${-16 * PI / 180}" upper="${10 * PI / 180}"
+               effort="${max_effort}" velocity="${max_velocity}"/>
+            <safety_controller soft_lower_limit="${-14 * PI / 180}"
+                               soft_upper_limit="${8 * PI / 180}"
+                               k_position="${safety_controller_k_pos}"
+                               k_velocity="${safety_controller_k_vel}"/>
+            <dynamics damping="${joint_damping}"/>
+        </joint>
+        <xacro:robotiq_finger prefix="${prefix}_fingerC"/>
+
+        <xacro:robotiq_3finger_description_transmission hardware_interface="${hardware_interface}"
+                                                    robot_name="${prefix}"/>
+
+    </xacro:macro>
+
+</robot>

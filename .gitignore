@@ -1,0 +1,10 @@
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# ignore logs
+logs
+
+# ignore dataset
+dataset/data
+scripts/debug*

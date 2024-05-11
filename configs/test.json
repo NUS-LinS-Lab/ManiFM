@@ -1,0 +1,94 @@
+{
+    "dir": {
+        "data_dir": {
+            "rigid_body":{
+                "force_closure": {
+                    "path": ["/data/organized_data/data_120k/rigid_body/force_closure"],
+                    "num_object": 10,
+                    "num_palm_pose": 300,
+                    "num_motion": 1
+                },
+                "leap_hand": {
+                    "path": ["/data/organized_data/data_120k/rigid_body/leap_hand"],
+                    "num_object": 10,
+                    "num_palm_pose": 75,
+                    "num_motion": 5
+                },
+                "kinova3f_hand": {
+                    "path": ["/data/organized_data/data_120k/rigid_body/kinova3f_hand"],
+                    "num_object": 2000,
+                    "num_palm_pose": 5,
+                    "num_motion": 3
+                },
+                "panda_hand": {
+                    "path": ["/data/organized_data/data_120k/rigid_body/panda_hand"],
+                    "num_object": 2000,
+                    "num_palm_pose": 5,
+                    "num_motion": 3
+                }
+            },
+            "cloth": ["/data/organized_data/data_120k/cloth_train"],
+            "mpm": ["/data/organized_data/data_120k/mpm_train"],
+            "rope": ["/data/organized_data/data_20k/rope_train"]
+        },
+        "work_dir": "log",
+        "only_one_object": false,
+        "use_J": false,
+        "load_ratio": 1,
+        "physcial_property_num": 6,
+        "use_region": true,
+        "use_physics": true,
+        "use_scale": true,
+        "remove_pc_num": 0, 
+        "remove_pc_prob": 0,
+        "noisy_upper_level": 0,
+        "random_flip_normal_upper_level":0
+    },
+    "loss": {
+        "contact_point_loss_coef": 1.0,
+        "kl_loss_coef": 0.001,
+        "force_loss_coef": 100.0,
+        "kl_coef": 0.05
+    },
+    "model": {
+        "transformer_dim": 256,
+        "nhead": 4,
+        "dim_feedforward": 256,
+        "dropout ": 0.1,
+        "transformer_num_layers": 3,
+
+        "physical_feature_dim": 10,
+        "physcial_property_num": 6,
+        "hand_in_dim": 6,
+        "hand_feature_dim": 16, 
+        "obj_feature_dim": 128,
+        "encoder_out_dim": 128,
+        "object_pn_hidden_dim": 128,
+        "latent_neurons":256,
+        "obj_in_dim": 13,
+
+        "contact_heatmap_mlp_hidden": 256,
+        "contact_heatmap_mlp_layer": 4,
+        "force_mlp_hidden": 256,
+        "force_mlp_layer": 4,
+        "physical_mlp_hidden": 16,
+        "physical_mlp_layer": 3,
+
+        "obj_point_num": 2048,
+        "contact_heatmap_k": 4,
+        "d_z": 64
+    },
+    "train": {
+        "gpu": 0,
+        "save_epoch": 3,
+        "seed": 666,
+        "epoch": 10000,
+        "lr": 1e-4,
+        "batch_size": 72,
+        "use_mix_heatmap": true,
+        "use_k_heatmap": false,
+        "use_cross_entropy": false,
+        "use_gaussian_map_ratio": 0.3,
+        "augment_part_seg_indicator_ratio": 0.5
+    }
+}
