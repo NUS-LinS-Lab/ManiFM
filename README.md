@@ -130,4 +130,13 @@ Run `scripts/pred_w_opt.py`.
 
 ## Cite
 
-TODO
+```
+@misc{xu2024manifoundation,
+      title={ManiFoundation Model for General-Purpose Robotic Manipulation of Contact Synthesis with Arbitrary Objects and Robots}, 
+      author={Zhixuan Xu and Chongkai Gao and Zixuan Liu and Gang Yang and Chenrui Tie and Haozhuo Zheng and Haoyu Zhou and Weikun Peng and Debang Wang and Tianyi Chen and Zhouliang Yu and Lin Shao},
+      year={2024},
+      eprint={2405.06964},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO}
+}
+```
